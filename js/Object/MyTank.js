@@ -80,7 +80,7 @@ var MyTank = Class(Tank, {
             default:
                 break;
         }
-    }
+    },
 });
 
 
