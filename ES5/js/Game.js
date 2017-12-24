@@ -461,7 +461,7 @@ var Game = {
 
     tileUpGradeEnd: function () {
         new Timer(function () {
-            Game.isUpGrade = Game.isUpGrade ? false : true;
+            Game.isUpGrade = !Game.isUpGrade;
             Game.baseTile.forEach(function (tile) {
                 tile.destroy();
                 tile.setType(Game.isUpGrade ? 6 : 5);
