@@ -1,34 +1,29 @@
-/**
- * Created by m on 2016/4/1.
- */
-/**
- * 开场界面
- */
-var UIOpen = {
-    runTimer: null,
-    y: 378,
-    Time: 0,
-    tank: null,
+import Loader from '../Loader';
+import Timer from '../Util/Timer';
+import Scene from '../Scene';
 
+export default class UIOpen {
+    runTimer = null;
+    y = 378;
+    Time = 0;
+    tank = null;
 
-    onEnter: function () {
-        UIOpen.runTimer = setInterval(function () {
-            Timer.arr.forEach(function (t) {
-                t.update();
-            });
+    onEnter() {
+        UIOpen.runTimer = setInterval(() => {
+            Timer.arr.forEach(t => t.update());
             UIOpen.onUpdate();
         }, Const.FPS);
 
-        UIOpen.tank = new Sprite();
-        UIOpen.tank.img = Loader.imgArr[0];
-        UIOpen.tank.setFrameSequence([0, 0, 14, 14]);
-        UIOpen.tank.x = 130;
-        UIOpen.tank.y = 272;
-        UIOpen.tank.angel = 90;
-    },
+        const tank = new Sprite();
+        tank.img = Loader.imgArr[0];
+        tank.setFrameSequence([0, 0, 14, 14]);
+        tank.x = 130;
+        tank.y = 272;
+        tank.angel = 90;
+        UIOpen.tank = tank;
+    }
 
-
-    onUpdate: function () {
+    onUpdate() {
         UIOpen.Time += Const.FPS;
         Scene.app.clearRect(0, 0, 600, 600);
         Scene.app.fillStyle = '#000';
@@ -62,12 +57,9 @@ var UIOpen = {
             }
         }
         Scene.app.restore();
-    },
+    }
 
-
-    onLeave: function () {
+    onLeave() {
         clearInterval(UIOpen.runTimer);
-    },
-
-
-};
+    }
+}

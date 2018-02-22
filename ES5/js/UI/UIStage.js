@@ -36,8 +36,8 @@ var UIStage = {
         else {
             Scene.app.fillStyle = '#000';
             Scene.app.fillText('STAGE    ' + Game.stage.toString(), 193, 234);
-            if (input.isPressed(keyCode.ENTER)) {
-                input.keyRelease(keyCode.ENTER);
+            if (Input.isPressed(keyCode.ENTER)) {
+                Input.keyRelease(keyCode.ENTER);
                 UIStage.onLeave();
                 UIGame.onEnter();
             }

@@ -1,13 +1,13 @@
-/**
- * Created by zj-db0758 on 17/12/24.
- */
-
 import Const from './Const';
 import Loader from './Loader';
 
 class App {
     constructor(canvas) {
-        this.start();
+        this.preload().then(() => {
+            Game.init();
+            Scene.init();
+            this.run();
+        });
     }
 
     preload() {
@@ -33,14 +33,6 @@ class App {
                 'sound/boom.mp3',
                 'sound/eat.mp3',
             ],
-        });
-    }
-
-    start() {
-        this.preload().then(() => {
-            Game.init();
-            Scene.init();
-            this.run();
         });
     }
 

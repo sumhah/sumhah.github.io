@@ -410,16 +410,16 @@ var Game = {
          * 玩家按下方向键，改变玩家坦克方向
          */
         switch (true) {
-            case input.isPressed(keyCode.LEFT):
+            case Input.isPressed(keyCode.LEFT):
                 Game.player.setDir(3);
                 break;
-            case input.isPressed(keyCode.UP):
+            case Input.isPressed(keyCode.UP):
                 Game.player.setDir(0);
                 break;
-            case input.isPressed(keyCode.RIGHT):
+            case Input.isPressed(keyCode.RIGHT):
                 Game.player.setDir(1);
                 break;
-            case input.isPressed(keyCode.DOWN):
+            case Input.isPressed(keyCode.DOWN):
                 Game.player.setDir(2);
                 break;
             default:
@@ -429,16 +429,16 @@ var Game = {
         /**
          * 玩家按下方向键，坦克在移动
          */
-        if (input.playerIsPressed()) {
+        if (Input.playerIsPressed()) {
             Game.player.state = 'moving';
         }
         else {
             Game.player.state = 'stay';
         }
 
-        if (input.isPressed(keyCode.SPACE)) {
+        if (Input.isPressed(keyCode.SPACE)) {
             Game.player.fire();
-            input.keyRelease(keyCode.SPACE);
+            Input.keyRelease(keyCode.SPACE);
         }
     },
 

@@ -14,7 +14,7 @@ var keyCode = {
     ESC: 27,
     SPACE: 32,
 };
-var input = {
+var Input = {
     keyList: [],
 
 
@@ -27,10 +27,10 @@ var input = {
             e = e ? e : window.event;
             if (e.keyCode >= 37 && e.keyCode <= 40) {
                 for (i = 37; i <= 40; i++) {
-                    input.keyRelease(i);
+                    Input.keyRelease(i);
                 }
             }
-            input.keyPress(e.keyCode);
+            Input.keyPress(e.keyCode);
         };
 
 
@@ -40,31 +40,31 @@ var input = {
          */
         document.onkeyup = function (e) {
             e = e ? e : window.event;
-            input.keyRelease(e.keyCode);
+            Input.keyRelease(e.keyCode);
         };
     },
 
 
     keyPress: function (keyCode) {
-        input.keyList[keyCode] = true;
+        Input.keyList[keyCode] = true;
     },
 
 
     keyRelease: function (keyCode) {
-        input.keyList[keyCode] = false;
+        Input.keyList[keyCode] = false;
     },
 
 
     isPressed: function (keyCode) {
-        return input.keyList[keyCode];
+        return Input.keyList[keyCode];
     },
 
 
     playerIsPressed: function () {
-        return input.isPressed(keyCode.UP) || input.isPressed(keyCode.RIGHT) || input.isPressed(keyCode.DOWN) || input.isPressed(keyCode.LEFT);
+        return Input.isPressed(keyCode.UP) || Input.isPressed(keyCode.RIGHT) || Input.isPressed(keyCode.DOWN) || Input.isPressed(keyCode.LEFT);
     },
 
 
 };
 
-input.initHandleEvent();
+Input.initHandleEvent();

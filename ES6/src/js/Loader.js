@@ -1,6 +1,3 @@
-/**
- * Created by zj-db0758 on 17/12/24.
- */
 export default class Loader {
     constructor() {
         this.imgArr = [];
@@ -16,7 +13,8 @@ export default class Loader {
                     resourcePromises.push(resourceSrcArr.map((src) => {
                         this.loadImage(src);
                     }));
-                } else if (resourceType === 'image') {
+                }
+                if (resourceType === 'audio') {
                     resourcePromises.push(resourceSrcArr.map((src, i) => {
                         this.loadAudio(src, i);
                     }));
