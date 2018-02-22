@@ -1,8 +1,9 @@
 import Loader from '../Loader';
-import Boom from './Boom';
+import Sprite from './Sprite';
 import Scene from '../Scene';
+import Const from '../Const';
 
-export default class Score extends Boom {
+export default class Score extends Sprite {
     lastTime = 0;
     img = Loader.imgArr[0];
     width = 32;

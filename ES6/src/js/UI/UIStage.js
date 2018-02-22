@@ -2,6 +2,7 @@ import Game from '../Game';
 import Timer from '../Util/Timer';
 import Scene from '../Scene';
 import Input from '../Input';
+import Const from '../Const';
 
 export default class UIStage {
     runTimer = null;

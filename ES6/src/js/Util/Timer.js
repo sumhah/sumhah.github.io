@@ -1,5 +1,5 @@
-import '../Const';
-import 'expand';
+import Const from '../Const';
+import './expand';
 
 export default class Timer {
     static arr = [];
@@ -12,7 +12,7 @@ export default class Timer {
     }
 
     update() {
-        this.time += FPS;
+        this.time += Const.FPS;
         if (this.time > this.endTime) {
             this.fn();
             Timer.arr.remove(this);

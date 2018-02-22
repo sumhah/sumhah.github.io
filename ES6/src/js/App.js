@@ -1,16 +1,26 @@
-import Const from './Const';
 import Loader from './Loader';
+import Game from './Game';
+import Scene from './Scene';
+import Input from './Input';
 
-class App {
-    constructor(canvas) {
+console.log(-2);
+
+export default class App {
+    static init(canvas) {
+        console.log(-1);
         this.preload().then(() => {
-            Game.init();
-            Scene.init();
+            console.log(0);
+            // Game.init();
+            console.log(1);
+            Scene.init(canvas);
+            console.log(2);
+            Input.initHandleEvent();
+            console.log(3);
             this.run();
         });
     }
 
-    preload() {
+    static preload() {
         return Loader.load({
             image: [
                 'images/Tank.png',
@@ -36,11 +46,11 @@ class App {
         });
     }
 
-    run() {
+    static run() {
 
     }
 
-    pause() {
+    static pause() {
 
     }
 }

@@ -1,4 +1,4 @@
-import Sprite from 'Sprite';
+import Sprite from './Sprite';
 import Timer from '../Util/Timer';
 
 export default class Bonus extends Sprite {

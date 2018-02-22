@@ -1,10 +1,8 @@
 export default class Loader {
-    constructor() {
-        this.imgArr = [];
-        this.soundArr = [];
-    }
+    static imgArr = [];
+    static soundArr = [];
 
-    load(resourceTable) {
+    static load(resourceTable) {
         return new Promise((resolve) => {
             const resourcePromises = [];
             for (let resourceType of Object.keys(resourceTable)) {
@@ -26,7 +24,7 @@ export default class Loader {
         });
     }
 
-    loadImage(src) {
+    static loadImage(src) {
         return new Promise((loaded) => {
             const source = new Image();
             source.src = src;
@@ -37,7 +35,7 @@ export default class Loader {
         });
     }
 
-    loadAudio(src, i) {
+    static loadAudio(src, i) {
         return new Promise((loaded) => {
             const source = new Audio();
             source.src = src;

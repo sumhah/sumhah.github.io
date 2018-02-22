@@ -14,10 +14,13 @@
 
 <script>
     /* eslint-disable */
+    console.log(10);
+    // import App from './js/App';
+    import A from './js/a';
     export default {
         name: 'app',
         mounted() {
-            const app = new App(this.$refs.canvas);
+            // App.init(this.$refs.canvas);
         }
     }
 </script>

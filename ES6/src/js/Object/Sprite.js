@@ -1,5 +1,8 @@
-import Layer from 'Layer';
-import '../Util/util';
+import Layer from './Layer';
+import Util from '../Util/util';
+import Const from '../Const';
+import TileLayer from './TileLayer';
+import Bullet from './Bullet';
 
 export default class Sprite extends Layer {
     nextX = 0;
@@ -12,6 +15,7 @@ export default class Sprite extends Layer {
 
     constructor() {
         super();
+        this.nextX = 0;
     }
 
     go() {
@@ -85,7 +89,7 @@ export default class Sprite extends Layer {
             case 270:
             case 90:
                 for (let i = 0; i < 26; i += 1) {
-                    if (distance(this.y, 16 * i + Const.MAP_UP_Y) <= 8) {
+                    if (Util.distance(this.y, 16 * i + Const.MAP_UP_Y) <= 8) {
                         this.nextY = 16 * i + Const.MAP_UP_Y;
                     }
                 }
@@ -93,7 +97,7 @@ export default class Sprite extends Layer {
             case 180:
             case 0:
                 for (let i = 0; i < 26; i += 1) {
-                    if (distance(this.x, 16 * i + Const.MAP_LEFT_X) <= 8) {
+                    if (Util.distance(this.x, 16 * i + Const.MAP_LEFT_X) <= 8) {
                         this.nextX = 16 * i + Const.MAP_LEFT_X;
                     }
                 }

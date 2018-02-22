@@ -1,8 +1,8 @@
-import 'Const';
+import Const from './Const';
 
 export default class Input {
     static keyList = [];
-    static directionKeyCodes = [KEY_CODE.UP, KEY_CODE.RIGHT, KEY_CODE.DOWN, KEY_CODE.LEFT];
+    static directionKeyCodes = [Const.KEY_CODE.UP, Const.KEY_CODE.RIGHT, Const.KEY_CODE.DOWN, Const.KEY_CODE.LEFT];
 
     static initHandleEvent() {
         document.onkeydown = (e) => {

@@ -2,6 +2,7 @@ import Game from '../Game';
 import Loader from '../Loader';
 import Timer from '../Util/Timer';
 import Scene from '../Scene';
+import Const from '../Const';
 
 export default class UIGame {
     runTimer = null;

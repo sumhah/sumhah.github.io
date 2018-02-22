@@ -1,5 +1,6 @@
 import Tank from './Tank';
 import Loader from '../Loader';
+import Const from '../Const';
 
 export default class NpcTank extends Tank {
     fireTime = 0;

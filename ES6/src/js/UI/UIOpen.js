@@ -1,6 +1,9 @@
 import Loader from '../Loader';
 import Timer from '../Util/Timer';
 import Scene from '../Scene';
+import Const from '../Const';
+import Sprite from '../Object/Sprite';
+import Input from '../Input';
 
 export default class UIOpen {
     runTimer = null;

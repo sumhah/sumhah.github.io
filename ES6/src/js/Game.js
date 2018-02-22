@@ -1,49 +1,57 @@
-import 'Const';
-import Input from 'Input';
+import Const from './Const';
+import Input from './Input';
+import Timer from './Util/Timer';
+// import MyTank from './Object/MyTank';
+// import NpcTank from './Object/NpcTank';
+import TileLayer from './Object/TileLayer';
+import UIGame from './UI/UIGame';
+import UIGameOver from './UI/UIGameOver';
+import UIScore from './UI/UIScore';
 
 export default class Game {
-    unit = [];
-    tanks = [];
-    enemyTanks = [];
-    enemyLiveArr = [];
-    barrier = [];
-    player = null;         // 玩家坦克
-    curGrade = 0;          // 坦克当前等级
+    static unit = [];
+    static tanks = [];
+    static enemyTanks = [];
+    static enemyLiveArr = [];
+    static barrier = [];
+    static player = null;         // 玩家坦克
+    static curGrade = 0;          // 坦克当前等级
 
-    stage = 1;              // 当前关数
-    life = 2;               // 当前生命
-    curTile = [];              // 当前关卡地形数组
-    tilesObjArr = [];          // 地形对象数组
-    curEnemyTanksSeq = [];     // 当前关卡坦克生产序列
+    static stage = 1;              // 当前关数
+    static life = 2;               // 当前生命
+    static curTile = [];              // 当前关卡地形数组
+    static tilesObjArr = [];          // 地形对象数组
+    static curEnemyTanksSeq = [];     // 当前关卡坦克生产序列
 
-    baseTile = [];             // 基地墙数组
-    isUpGrade = false;         // 是否已经升级
-    upGradeEnd = false;
+    static baseTile = [];             // 基地墙数组
+    static isUpGrade = false;         // 是否已经升级
+    static upGradeEnd = false;
 
-    expectantEnemyNum = TOTAL_ENEMY; // 待产坦克数
-    enemyLeftNum = TOTAL_ENEMY;
+    static expectantEnemyNum = Const.TOTAL_ENEMY; // 待产坦克数
+    static enemyLeftNum = Const.TOTAL_ENEMY;
 
-    score = 0;               // 当前得分
-    scoreMax = 20000;        // 游戏最高分
-    scoreBonus = 20000;      // 下一个奖命分数
-    scoreTanksArr = {
+    static score = 0;               // 当前得分
+    static scoreMax = 20000;        // 游戏最高分
+    static scoreBonus = 20000;      // 下一个奖命分数
+    static scoreTanksArr = {
         small: 15,
         fast: 16,
         middle: 10,
         big: 14,
     };
-    _birthPos = [
+    static _birthPos = [
         [193, 1],
         [384, 1],
         [1, 1],
     ];         // 坦克出生地点
     // 出生序号 决定出生地点
-    _birthCurrentNum = 0;
-    isFreeze = false;       // 是否处于定时状态
+    static _birthCurrentNum = 0;
+    static isFreeze = false;       // 是否处于定时状态
 
-    init() {}
+    static init() {
+    }
 
-    createTanks() {
+    static createTanks() {
         // 创建的同时绑定单位到各个单位组
         Game.player = new MyTank();
         Game.player.setType(Game.curGrade);
@@ -51,12 +59,12 @@ export default class Game {
         Game.birthPlayer();
 
         // 创建电脑坦克
-        Game.enemyTanks = [...Array(MAX_TANK - 1)].map(() => new NpcTank());
+        Game.enemyTanks = [...Array(Const.MAX_TANK - 1)].map(() => new NpcTank());
         Game.tanks.push(...Game.enemyTanks);
         Game.unit.push(...Game.tanks);
     }
 
-    createTiles() {
+    static createTiles() {
         let row = 0, col = 0;
         let arr = Game.tilesObjArr;
 
@@ -122,14 +130,14 @@ export default class Game {
         });
     }
 
-    autoBirth() {
+    static autoBirth() {
         const birthEnemyTank = (tank) => {
             if (!tank) {
                 return;
             }
 
             tank.setPos(Game._birthPos[Game._birthCurrentNum][0], Game._birthPos[Game._birthCurrentNum][1]);
-            tank.setType(Game.curEnemyTanksSeq[TOTAL_ENEMY - Game.expectantEnemyNum]);
+            tank.setType(Game.curEnemyTanksSeq[Const.TOTAL_ENEMY - Game.expectantEnemyNum]);
             tank.birth();
             Game.expectantEnemyNum -= 1;
             Game._birthCurrentNum = Game._birthCurrentNum + 1 % 3;
@@ -143,13 +151,13 @@ export default class Game {
         }
     }
 
-    birthPlayer() {
+    static birthPlayer() {
         Game.player.setPos(128, 384);
         Game.player.birth();
         Game.player.setInvincible(11000);
     }
 
-    over() {
+    static over() {
         UIGame.onLeave();
         const player = Game.player;
         if (player.state === 'moving') {
@@ -158,7 +166,7 @@ export default class Game {
         UIGameOver.onEnter();
     }
 
-    update() {
+    static update() {
         Game.autoBirth();
         Game.unit.forEach((unit) => {
             unit.update();
@@ -183,23 +191,23 @@ export default class Game {
         }
     }
 
-    command() {
+    static command() {
         if (Game.player.state === 'death' || Game.player.state === 'birth') {
             return;
         }
 
         // 玩家按下方向键，改变玩家坦克方向
         switch (true) {
-            case Input.isPressed(KEY_CODE.LEFT):
+            case Input.isPressed(Const.KEY_CODE.LEFT):
                 Game.player.setDir(3);
                 break;
-            case Input.isPressed(KEY_CODE.UP):
+            case Input.isPressed(Const.KEY_CODE.UP):
                 Game.player.setDir(0);
                 break;
-            case Input.isPressed(KEY_CODE.RIGHT):
+            case Input.isPressed(Const.KEY_CODE.RIGHT):
                 Game.player.setDir(1);
                 break;
-            case Input.isPressed(KEY_CODE.DOWN):
+            case Input.isPressed(Const.KEY_CODE.DOWN):
                 Game.player.setDir(2);
                 break;
             default:
@@ -207,15 +215,15 @@ export default class Game {
         }
 
         // 玩家按下方向键，坦克在移动
-        Game.player.state = Input.playerIsPressed() ? 'moving' : 'stay';
+        Game.player.state = Input.isAnyDirPressed() ? 'moving' : 'stay';
 
-        if (Input.isPressed(KEY_CODE.SPACE)) {
+        if (Input.isPressed(Const.KEY_CODE.SPACE)) {
             Game.player.fire();
-            Input.keyRelease(KEY_CODE.SPACE);
+            Input.keyRelease(Const.KEY_CODE.SPACE);
         }
     }
 
-    tileUpGrade() {
+    static tileUpGrade() {
         Game.upGradeEnd = false;
         Game.baseTile.forEach((tile) => {
             tile.destroy();
@@ -230,7 +238,7 @@ export default class Game {
         }, 20000);
     }
 
-    tileUpGradeEnd() {
+    static tileUpGradeEnd() {
         new Timer(() => {
             Game.isUpGrade = !Game.isUpGrade;
             Game.baseTile.forEach((tile) => {
@@ -248,10 +256,10 @@ export default class Game {
         }, 500);
     }
 
-    reset() {
-        Game.expectantEnemyNum = TOTAL_ENEMY;
-        Game.curTile = MAP_TERRAIN[Game.stage - 1];
-        Game.curEnemyTanksSeq = ENEMY_TANK_SEQUENCE[Game.stage - 1];
+    static reset() {
+        Game.expectantEnemyNum = Const.TOTAL_ENEMY;
+        Game.curTile = Const.MAP_TERRAIN[Game.stage - 1];
+        Game.curEnemyTanksSeq = Const.ENEMY_TANK_SEQUENCE[Game.stage - 1];
         Game.tilesObjArr = [];
         Game.baseTile = [];
         Game.unit = [];
@@ -265,7 +273,7 @@ export default class Game {
             middle: 0,
             big: 0,
         };
-        Game.enemyLeftNum = TOTAL_ENEMY;
+        Game.enemyLeftNum = Const.TOTAL_ENEMY;
         Game.createTanks();
         Game.createTiles();
     }

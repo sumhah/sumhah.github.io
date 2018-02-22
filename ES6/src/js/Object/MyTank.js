@@ -1,6 +1,7 @@
 import Tank from './Tank';
 import Boot from './Boot';
 import Loader from '../Loader';
+import Const from '../Const';
 
 export default class MyTank extends Tank {
     speed = 4;

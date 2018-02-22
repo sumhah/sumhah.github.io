@@ -1,4 +1,4 @@
-import Sprite from 'Sprite';
+import Sprite from './Sprite';
 
 export default class Boot extends Sprite {
 

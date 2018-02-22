@@ -1,5 +1,7 @@
 import Sprite from './Sprite';
-import Boom from './Boom';
+// import Boom from './Boom';
+// import Tank from './Tank';
+// import TileLayer from './TileLayer';
 import '../Util/expand';
 
 export default class Bullet extends Sprite {

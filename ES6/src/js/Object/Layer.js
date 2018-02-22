@@ -1,6 +1,6 @@
 import Loader from '../Loader';
-import '../Const';
 import Scene from '../Scene';
+import Const from '../Const';
 
 export default class Layer {
     x = 0;
@@ -13,11 +13,15 @@ export default class Layer {
     angel = 0;
     isVisible = true;
     static keyCodeToAngle = {
-        [KEY_CODE.UP]: 0,
-        [KEY_CODE.RIGHT]: 90,
-        [KEY_CODE.DOWN]: 180,
-        [KEY_CODE.LEFT]: 270,
+        [Const.KEY_CODE.UP]: 0,
+        [Const.KEY_CODE.RIGHT]: 90,
+        [Const.KEY_CODE.DOWN]: 180,
+        [Const.KEY_CODE.LEFT]: 270,
     };
+
+    constructor() {
+        this.angel = 0;
+    }
 
     setPos(x, y) {
         this.x = x + Const.MAP_LEFT_X;

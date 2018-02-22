@@ -1,4 +1,5 @@
-import Sprite from 'Sprite';
+import Sprite from './Sprite';
+import Score from './Score';
 
 export default class Boom extends Sprite {
     lastTime = 0;

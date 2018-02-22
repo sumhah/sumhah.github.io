@@ -4,6 +4,11 @@ import Bullet from './Bullet';
 import Loader from '../Loader';
 import Timer from '../Util/Timer';
 import Game from '../Game';
+import MyTank from './MyTank';
+import Const from '../Const';
+import Bonus from './Bonus';
+import NpcTank from './NpcTank';
+import TileLayer from './TileLayer';
 
 export default class Tank extends Sprite {
     // 100 - 500  [116,117,118,119,120] SCORE
