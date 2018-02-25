@@ -5,10 +5,10 @@ import Scene from '../Scene';
 import Const from '../Const';
 
 export default class UIGame {
-    runTimer = null;
-    y = 0;
+    static runTimer = null;
+    static y = 0;
 
-    onEnter() {
+    static onEnter() {
         Game.reset();
         Loader.soundArr[5].play();
 
@@ -20,7 +20,7 @@ export default class UIGame {
         UIGame.y = 225;
     }
 
-    onUpdate() {
+    static onUpdate() {
         Scene.draw();
         Game.command();
 
@@ -29,7 +29,7 @@ export default class UIGame {
         UIGame.openAnimation();
     }
 
-    openAnimation() {
+    static openAnimation() {
         if (UIGame.y > 0) {
             UIGame.y -= 20;
             Scene.app.fillStyle = '#666';
@@ -38,7 +38,7 @@ export default class UIGame {
         }
     }
 
-    onLeave() {
+    static onLeave() {
         clearInterval(UIGame.runTimer);
     }
 }

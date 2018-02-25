@@ -1,5 +1,7 @@
 import Sprite from './Sprite';
 import Timer from '../Util/Timer';
+import Loader from '../Loader';
+import Game from '../Game';
 
 export default class Bonus extends Sprite {
     img = Loader.imgArr[0];

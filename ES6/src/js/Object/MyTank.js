@@ -1,5 +1,6 @@
 import Tank from './Tank';
 import Boot from './Boot';
+import Game from '../Game';
 import Loader from '../Loader';
 import Const from '../Const';
 
@@ -70,6 +71,10 @@ export default class MyTank extends Tank {
             default:
                 break;
         }
+    }
+
+    fire() {
+        super.fire(true);
     }
 }
 

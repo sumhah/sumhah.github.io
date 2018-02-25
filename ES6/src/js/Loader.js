@@ -1,3 +1,5 @@
+
+
 export default class Loader {
     static imgArr = [];
     static soundArr = [];

@@ -2,6 +2,7 @@ import Loader from '../Loader';
 import Sprite from './Sprite';
 import Scene from '../Scene';
 import Const from '../Const';
+import Game from '../Game';
 
 export default class Score extends Sprite {
     lastTime = 0;

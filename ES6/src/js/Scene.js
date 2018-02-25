@@ -1,4 +1,6 @@
 import Const from './Const';
+import Game from './Game';
+import Loader from './Loader';
 
 export default class Scene {
     static appCanvas;

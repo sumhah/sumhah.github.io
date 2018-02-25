@@ -1,8 +1,7 @@
 import Layer from './Layer';
 import Util from '../Util/util';
 import Const from '../Const';
-import TileLayer from './TileLayer';
-import Bullet from './Bullet';
+import Game from '../Game';
 
 export default class Sprite extends Layer {
     nextX = 0;
@@ -120,7 +119,8 @@ export default class Sprite extends Layer {
         x1 = this.nextX;
         y1 = this.nextY;
 
-        if (width && this instanceof Bullet && targetSprite instanceof TileLayer) {
+        // todo 可重构，存在一定的耦合
+        if (width) {
             switch (this.angel) {
                 case 270:
                 case 90:

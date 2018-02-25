@@ -4,14 +4,14 @@ import Scene from '../Scene';
 import Const from '../Const';
 import Sprite from '../Object/Sprite';
 import Input from '../Input';
+import UIStage from './UIStage';
 
 export default class UIOpen {
-    runTimer = null;
-    y = 378;
-    Time = 0;
-    tank = null;
+    static runTimer = null;
+    static y = 378;
+    static tank = null;
 
-    onEnter() {
+    static onEnter() {
         UIOpen.runTimer = setInterval(() => {
             Timer.arr.forEach(t => t.update());
             UIOpen.onUpdate();
@@ -26,7 +26,7 @@ export default class UIOpen {
         UIOpen.tank = tank;
     }
 
-    onUpdate() {
+    static onUpdate() {
         UIOpen.Time += Const.FPS;
         Scene.app.clearRect(0, 0, 600, 600);
         Scene.app.fillStyle = '#000';
@@ -44,9 +44,9 @@ export default class UIOpen {
 
         if (UIOpen.y > 0) {
             UIOpen.y -= 4;
-            if (Input.isPressed(keyCode.ENTER)) {
+            if (Input.isPressed(Const.KEY_CODE.ENTER)) {
                 UIOpen.y = 0;
-                Input.keyRelease(keyCode.ENTER);
+                Input.keyRelease(Const.KEY_CODE.ENTER);
             }
         }
         else {
@@ -54,7 +54,7 @@ export default class UIOpen {
             UIOpen.tank.updateFrame();
             UIOpen.tank.draw();
 
-            if (Input.isPressed(keyCode.ENTER)) {
+            if (Input.isPressed(Const.KEY_CODE.ENTER)) {
                 UIOpen.onLeave();
                 UIStage.onEnter();
             }
@@ -62,7 +62,7 @@ export default class UIOpen {
         Scene.app.restore();
     }
 
-    onLeave() {
+    static onLeave() {
         clearInterval(UIOpen.runTimer);
     }
 }

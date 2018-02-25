@@ -2,25 +2,26 @@ import Game from '../Game';
 import Loader from '../Loader';
 import Timer from '../Util/Timer';
 import Scene from '../Scene';
+import UIStage from './UIStage';
 
 export default class UIScore {
-    runTimer = null;
-    Time = 0;
-    score = {
+    static runTimer = null;
+    static Time = 0;
+    static score = {
         small: 0,
         fast: 0,
         middle: 0,
         big: 0,
         total: 0,
     };
-    reviseX = {
+    static reviseX = {
         small: 0,
         fast: 0,
         middle: 0,
         big: 0,
     };
 
-    onEnter() {
+    static onEnter() {
         UIScore.Time = 0;
         UIScore.score = {
             small: 0,
@@ -36,7 +37,7 @@ export default class UIScore {
         }, 300);
     }
 
-    onUpdate() {
+    static onUpdate() {
         /**
          * 清空画板，并绘制黑色背景
          */
@@ -147,7 +148,7 @@ export default class UIScore {
         }
     }
 
-    onLeave() {
+    static onLeave() {
         clearInterval(UIScore.runTimer);
     }
 }

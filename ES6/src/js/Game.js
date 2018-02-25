@@ -1,8 +1,8 @@
 import Const from './Const';
 import Input from './Input';
 import Timer from './Util/Timer';
-// import MyTank from './Object/MyTank';
-// import NpcTank from './Object/NpcTank';
+import MyTank from './Object/MyTank';
+import NpcTank from './Object/NpcTank';
 import TileLayer from './Object/TileLayer';
 import UIGame from './UI/UIGame';
 import UIGameOver from './UI/UIGameOver';
@@ -136,11 +136,12 @@ export default class Game {
                 return;
             }
 
-            tank.setPos(Game._birthPos[Game._birthCurrentNum][0], Game._birthPos[Game._birthCurrentNum][1]);
+            Game._birthCurrentNum = (Game._birthCurrentNum + 1) % 3;
+            const birthPos = Game._birthPos[Game._birthCurrentNum];
+            tank.setPos(birthPos[0], birthPos[1]);
             tank.setType(Game.curEnemyTanksSeq[Const.TOTAL_ENEMY - Game.expectantEnemyNum]);
             tank.birth();
             Game.expectantEnemyNum -= 1;
-            Game._birthCurrentNum = Game._birthCurrentNum + 1 % 3;
         };
 
         if (Game.expectantEnemyNum >= 1) {
@@ -199,16 +200,16 @@ export default class Game {
         // 玩家按下方向键，改变玩家坦克方向
         switch (true) {
             case Input.isPressed(Const.KEY_CODE.LEFT):
-                Game.player.setDir(3);
+                Game.player.setDir(Const.KEY_CODE.LEFT);
                 break;
             case Input.isPressed(Const.KEY_CODE.UP):
-                Game.player.setDir(0);
+                Game.player.setDir(Const.KEY_CODE.UP);
                 break;
             case Input.isPressed(Const.KEY_CODE.RIGHT):
-                Game.player.setDir(1);
+                Game.player.setDir(Const.KEY_CODE.RIGHT);
                 break;
             case Input.isPressed(Const.KEY_CODE.DOWN):
-                Game.player.setDir(2);
+                Game.player.setDir(Const.KEY_CODE.DOWN);
                 break;
             default:
                 break;

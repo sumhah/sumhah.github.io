@@ -5,19 +5,19 @@ import Scene from '../Scene';
 import Const from '../Const';
 
 export default class UIGameOver {
-    runTimer = null;
-    y = 10;
-    Time = 0;
-    isPlay = false;
+    static runTimer = null;
+    static y = 10;
+    static Time = 0;
+    static isPlay = false;
 
-    onEnter() {
+    static onEnter() {
         UIGameOver.runTimer = setInterval(function () {
             Timer.arr.forEach(t => t.update());
             UIGameOver.onUpdate();
         }, Const.FPS);
     }
 
-    onUpdate() {
+    static onUpdate() {
         UIGameOver.Time += Const.FPS;
         Scene.draw();
 
@@ -47,11 +47,11 @@ export default class UIGameOver {
         }
     }
 
-    onLeave() {
+    static onLeave() {
         clearInterval(UIGameOver.runTimer);
     }
 
-    showOverImg() {
+    static showOverImg() {
         Scene.app.drawImage(Loader.imgArr[4], 0, 148, 376, 170, 132, 147, 376, 170);
     }
 }

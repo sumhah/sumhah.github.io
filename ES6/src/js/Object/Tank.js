@@ -4,10 +4,9 @@ import Bullet from './Bullet';
 import Loader from '../Loader';
 import Timer from '../Util/Timer';
 import Game from '../Game';
-import MyTank from './MyTank';
 import Const from '../Const';
 import Bonus from './Bonus';
-import NpcTank from './NpcTank';
+import Util from '../Util/util';
 import TileLayer from './TileLayer';
 
 export default class Tank extends Sprite {
@@ -145,13 +144,13 @@ export default class Tank extends Sprite {
         this.bullets = [...Array(bulletMax)].map(() => new Bullet(this.team, power, speed));
     }
 
-    fire() {
+    fire(hasSound) {
         // 找出空闲子弹并发射
         const bullet = this.bullets.find(bullet => bullet.isIdle);
         if (bullet) {
             bullet.shot(this.x, this.y, this.angel);
 
-            if (this instanceof MyTank) {
+            if (hasSound) {
                 Loader.soundArr[7].play();
             }
         }
@@ -196,7 +195,7 @@ export default class Tank extends Sprite {
 
     death() {
         if (this.type >= 8) {
-            new Bonus(random(1, 6), random(Const.MAP_LEFT_X, Const.MAP_RIGHT_X - 32), random(Const.MAP_UP_Y, Const.MAP_DOWN_Y - 32));
+            new Bonus(Util.random(1, 6), Util.random(Const.MAP_LEFT_X, Const.MAP_RIGHT_X - 32), Util.random(Const.MAP_UP_Y, Const.MAP_DOWN_Y - 32));
         }
         switch (this.score) {
             case 100:
@@ -228,10 +227,6 @@ export default class Tank extends Sprite {
             } else {
                 Game.over();
             }
-        }
-        if (this instanceof NpcTank) {
-            Game.enemyLiveArr.remove(this);
-            Game.enemyLeftNum -= 1;
         }
     }
 

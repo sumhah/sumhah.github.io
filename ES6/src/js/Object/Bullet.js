@@ -1,7 +1,9 @@
 import Sprite from './Sprite';
-// import Boom from './Boom';
-// import Tank from './Tank';
-// import TileLayer from './TileLayer';
+import Boom from './Boom';
+import Tank from './Tank';
+import TileLayer from './TileLayer';
+import Loader from '../Loader';
+import Game from '../Game';
 import '../Util/expand';
 
 export default class Bullet extends Sprite {
@@ -28,6 +30,13 @@ export default class Bullet extends Sprite {
         return unit.team === 10 && (unit.type === 3 || unit.type === 2);
     }
 
+    isCanBeDestroyed(tile, bulletGrade) {
+        if (tile.type === 1 || tile.type === 6) {
+            return true;
+        }
+        return tile.type === 5 && bulletGrade > 1
+    }
+
     update() {
         if (this.isIdle) {
             return;
@@ -42,25 +51,27 @@ export default class Bullet extends Sprite {
         }
 
         // 对 接触到 并且 不为盟友 的单位执行动作
-        const target = Game.barrier.find(unit => !this.isCanPass(unit) && (this.collidesWith(unit) && this.team !== unit.team));
+        const target = Game.barrier.find(unit => !this.isCanPass(unit) &&
+            (this.collidesWith(unit) && this.team !== unit.team));
         if (target instanceof Tank) {
+            this.idle();
             target.damage();
+            return;
         }
 
         if (target instanceof Bullet) {
+            this.idle();
             target.idle();
+            return;
         }
 
         if (target instanceof TileLayer) {
             Game.barrier.filter(otherTile => otherTile instanceof TileLayer &&
-                this.collidesWith(otherTile, 20) && ((otherTile.type === 6 || this.power >= 2) &&
-                    otherTile.type !== 1))
+                this.collidesWith(otherTile, 20) && this.isCanBeDestroyed(otherTile))
                 .forEach(unit => unit.destroy());
-            if (target.type === 6 || this.power >= 2 || target.type === 1) {
-                target.destroy();
-            }
+            this.idle();
+            return;
         }
-        this.idle();
         this.go();
         this.draw();
     }

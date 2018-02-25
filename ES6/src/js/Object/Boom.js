@@ -1,5 +1,8 @@
 import Sprite from './Sprite';
 import Score from './Score';
+import Loader from '../Loader';
+import Game from '../Game';
+import Const from '../Const';
 
 export default class Boom extends Sprite {
     lastTime = 0;

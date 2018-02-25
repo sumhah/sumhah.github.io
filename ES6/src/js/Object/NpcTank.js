@@ -1,6 +1,8 @@
 import Tank from './Tank';
 import Loader from '../Loader';
 import Const from '../Const';
+import Game from '../Game';
+import Util from '../Util/util';
 
 export default class NpcTank extends Tank {
     fireTime = 0;
@@ -104,8 +106,19 @@ export default class NpcTank extends Tank {
         this.draw();
     }
 
+    death() {
+        super.death();
+        Game.enemyLiveArr.remove(this);
+        Game.enemyLeftNum -= 1;
+    }
+
     autoToTurn() {
         this.state = 'moving';
-        this.setDir(Math.floor(Math.random() * 4));
+        this.setDir([
+            Const.KEY_CODE.UP,
+            Const.KEY_CODE.DOWN,
+            Const.KEY_CODE.LEFT,
+            Const.KEY_CODE.RIGHT,
+        ][Util.random(0, 3)]);
     }
 }

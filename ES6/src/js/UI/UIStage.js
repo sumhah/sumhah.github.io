@@ -3,12 +3,13 @@ import Timer from '../Util/Timer';
 import Scene from '../Scene';
 import Input from '../Input';
 import Const from '../Const';
+import UIGame from './UIGame';
 
 export default class UIStage {
-    runTimer = null;
-    y = 0;
+    static runTimer = null;
+    static y = 0;
 
-    onEnter() {
+    static onEnter() {
         UIStage.y = 0;
         UIStage.runTimer = setInterval(() => {
             Timer.arr.forEach(t => t.update());
@@ -16,7 +17,7 @@ export default class UIStage {
         }, Const.FPS);
     }
 
-    onUpdate() {
+    static onUpdate() {
         const app = Scene.app;
         app.clearRect(0, 0, 600, 600);
         app.fillStyle = '#000';
@@ -32,15 +33,15 @@ export default class UIStage {
         } else {
             app.fillStyle = '#000';
             app.fillText('STAGE    ' + Game.stage.toString(), 193, 234);
-            if (Input.isPressed(keyCode.ENTER)) {
-                Input.keyRelease(keyCode.ENTER);
+            if (Input.isPressed(Const.KEY_CODE.ENTER)) {
+                Input.keyRelease(Const.KEY_CODE.ENTER);
                 UIStage.onLeave();
                 UIGame.onEnter();
             }
         }
     }
 
-    onLeave() {
+    static onLeave() {
         clearInterval(UIStage.runTimer);
     }
 }

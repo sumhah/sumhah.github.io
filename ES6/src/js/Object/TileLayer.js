@@ -1,5 +1,5 @@
 import Sprite from './Sprite';
-// import Game from '../Game';
+import Game from '../Game';
 import Loader from '../Loader';
 
 export default class TileLayer extends Sprite {

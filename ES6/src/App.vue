@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div class="GameScreen">
-            <canvas width="512" height="448" ref="canvas">A drawing of something.</canvas>
+            <canvas width="512" height="448" ref="canvas" class="canvas">A drawing of something.</canvas>
         </div>
         <ul class="command">
             <li class="left"></li>
@@ -14,13 +14,11 @@
 
 <script>
     /* eslint-disable */
-    console.log(10);
-    // import App from './js/App';
-    import A from './js/a';
+    import App from './js/App';
     export default {
         name: 'app',
         mounted() {
-            // App.init(this.$refs.canvas);
+            App.init(this.$refs.canvas);
         }
     }
 </script>
@@ -45,7 +43,7 @@
         outline: none;
     }
 
-    #drawing {
+    .canvas {
         background-color: #666;
     }
 

@@ -1,4 +1,5 @@
 import Sprite from './Sprite';
+import Loader from '../Loader';
 
 export default class Boot extends Sprite {
 
