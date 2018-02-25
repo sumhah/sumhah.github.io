@@ -48,9 +48,6 @@ export default class Game {
     static _birthCurrentNum = 0;
     static isFreeze = false;       // 是否处于定时状态
 
-    static init() {
-    }
-
     static createTanks() {
         // 创建的同时绑定单位到各个单位组
         Game.player = new MyTank();
@@ -76,9 +73,8 @@ export default class Game {
             ) {
                 arr = Game.baseTile;
             }
-            /**
-             * 墙分为四小块
-             */
+
+            // 墙分为四小块
             if (tile > 50) {
                 const firstNum = Math.floor(tile / 10);
                 const secondNum = tile % 10;
@@ -169,9 +165,7 @@ export default class Game {
 
     static update() {
         Game.autoBirth();
-        Game.unit.forEach((unit) => {
-            unit.update();
-        });
+        Game.unit.forEach(unit => unit.update());
 
         // 电脑坦克全部摧毁，进入下一关
         if (Game.expectantEnemyNum <= 0 && Game.enemyLeftNum <= 0) {
@@ -226,7 +220,7 @@ export default class Game {
 
     static tileUpGrade() {
         Game.upGradeEnd = false;
-        Game.baseTile.forEach((tile) => {
+        Game.baseTile.forEach(tile => {
             tile.destroy();
             tile.setType(5);
         });
@@ -242,14 +236,14 @@ export default class Game {
     static tileUpGradeEnd() {
         new Timer(() => {
             Game.isUpGrade = !Game.isUpGrade;
-            Game.baseTile.forEach((tile) => {
+            Game.baseTile.forEach(tile => {
                 tile.destroy();
                 tile.setType(Game.isUpGrade ? 6 : 5);
             });
             if (!Game.upGradeEnd) {
                 Game.tileUpGradeEnd();
             } else {
-                Game.baseTile.forEach((tile) => {
+                Game.baseTile.forEach(tile => {
                     tile.destroy();
                     tile.setType(6);
                 });

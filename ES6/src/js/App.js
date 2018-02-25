@@ -7,7 +7,6 @@ import UIOpen from './UI/UIOpen';
 export default class App {
     static init(canvas) {
         this.preload().then(() => {
-            Game.init();
             Scene.init(canvas);
             Input.initHandleEvent();
             this.run();

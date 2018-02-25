@@ -38,44 +38,30 @@ export default class UIScore {
     }
 
     static onUpdate() {
-        /**
-         * 清空画板，并绘制黑色背景
-         */
+        // 清空画板，并绘制黑色背景
         const app = Scene.app;
         app.clearRect(0, 0, 600, 600);
         app.fillStyle = '#000';
         app.fillRect(0, 0, 600, 600);
         app.font = '22px Arial Black';
 
-        /**
-         * 最高积分数
-         * @type {string}
-         */
+        // 最高积分数
         app.fillStyle = '#B53020';
         app.fillText('HI-SCORE     ', 131, 40);
         app.fillStyle = '#EB9F21';
         app.fillText(Game.scoreMax.toString(), 305, 40);
 
-        /**
-         * 关卡数
-         * @type {string}
-         */
+        // 关卡数
         app.fillStyle = '#fff';
         app.fillText('STAGE  ' + Game.stage.toString(), 200, 72);
 
-        /**
-         * 玩家得分
-         * @type {string}
-         */
+        // 玩家得分
         app.fillStyle = '#B53020';
         app.fillText('I-PLAYER', 71, 104);
         app.fillStyle = '#EB9F21';
         app.fillText(Game.score.toString(), 170, 137);
 
-        /**
-         * 各坦克击杀得分
-         * @type {string}
-         */
+        // 各坦克击杀得分
         app.fillStyle = '#fff';
         let s, f, m, b;
         UIScore.reviseX.small = 15 * ((UIScore.score.small * 100).toString().length - 1);
@@ -96,9 +82,7 @@ export default class UIScore {
         app.fillText(UIScore.score.middle.toString(), 215 - m, 264);
         app.fillText(UIScore.score.big.toString(), 215 - b, 304);
 
-        /**
-         * 箭号和坦克图片
-         */
+        // 箭号和坦克图片
         app.drawImage(Loader.imgArr[3], 96, 0, 32, 32, 235, 170, 32, 32);
         app.drawImage(Loader.imgArr[3], 96, 0, 32, 32, 235, 210, 32, 32);
         app.drawImage(Loader.imgArr[3], 96, 0, 32, 32, 235, 250, 32, 32);
@@ -109,15 +93,11 @@ export default class UIScore {
         app.drawImage(Loader.imgArr[0], 32 * 8, 0, 32, 32, 255, 240, 32, 32);
         app.drawImage(Loader.imgArr[0], 32 * 10, 0, 32, 32, 255, 280, 32, 32);
 
-        /**
-         * 总分
-         */
+        // 总分
         app.fillText('——————', 184, 330);
         app.fillText('TOTAL    ' + UIScore.score.total.toString(), 98, 354);
 
-        /**
-         * 积分计算 动画控制
-         */
+        // 积分计算 动画控制
         if (UIScore.score.small < Game.scoreTanksArr.small) {
             UIScore.score.small++;
             Loader.soundArr[6].play();
@@ -136,9 +116,7 @@ export default class UIScore {
                 Loader.soundArr[6].play();
             }
 
-            /**
-             * 积分计算结束，进入下一关
-             */
+            // 积分计算结束，进入下一关
             UIScore.Time += 300;
             if (UIScore.Time >= 3000) {
                 UIScore.onLeave();

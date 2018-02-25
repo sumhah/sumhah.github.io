@@ -43,9 +43,7 @@ export default class Sprite extends Layer {
 
     updateNext() {
         switch (this.angel) {
-            /**
-             * left up right down 不超出边界
-             */
+            // left up right down 不超出边界
             case 270:
                 this.nextX = this.x - this.speed;
                 this.nextY = this.y;

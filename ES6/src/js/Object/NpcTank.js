@@ -29,6 +29,7 @@ export default class NpcTank extends Tank {
                     Game.enemyLiveArr.push(this);
                     this.updateNext();
                     this.updateFrame();
+
                     // 检测是否有粘住坦克，如果有则允许移动，并且移动后不可在黏住
                     Game.barrier.filter(unit => this.collidesWith(unit)).forEach(unit => {
                         this._stickySprite = unit;
@@ -54,12 +55,11 @@ export default class NpcTank extends Tank {
                     this.stayTime = 0;
                 }
                 if (this.type >= 8) {
-                    this.updateFrame();  //红坦克停留时也闪烁
+                    //红坦克停留时也闪烁
+                    this.updateFrame();
                 }
 
-                /**
-                 * AI发射炮弹
-                 */
+                // AI发射炮弹
                 if (this.fireTime > 3 + Math.random() * 2) {
                     if (!Game.isFreeze) {
                         this.fire();
@@ -84,15 +84,11 @@ export default class NpcTank extends Tank {
                         this._stickySprite = null;
                     }
                 } else {
-                    /**
-                     * AI撞墙后停留一会儿，然后智能转向
-                     */
+                    // AI撞墙后停留一会儿，然后智能转向
                     this.state = 'stay';
                 }
 
-                /**
-                 * AI发射炮弹
-                 */
+                // AI发射炮弹
                 if (this.fireTime > Math.random() * 2) {
                     this.fire();
                     this.fireTime = 0;
