@@ -1,7 +1,6 @@
 import Layer from './Layer';
-import Util from '../Util/util';
+import Util from '../Util/Util';
 import Const from '../Const';
-import Game from '../Game';
 
 export default class Sprite extends Layer {
     nextX = 0;
@@ -14,7 +13,6 @@ export default class Sprite extends Layer {
 
     constructor() {
         super();
-        this.nextX = 0;
     }
 
     go() {
@@ -65,13 +63,13 @@ export default class Sprite extends Layer {
         }
     }
 
-    nextStepIsBarrier() {
+    nextStepIsBarrier(barriers) {
         // 不在地图内
         if (!this.nextIsInMap()) {
             return true;
         }
 
-        return Game.barrier.some(barrier => this.collidesWith(barrier) && barrier !== this._stickySprite);
+        return barriers.some(barrier => this.collidesWith(barrier) && barrier !== this._stickySprite);
     }
 
     nextIsInMap() {

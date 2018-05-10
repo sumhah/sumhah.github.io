@@ -21,7 +21,7 @@ export default class UIScore {
         big: 0,
     };
 
-    static onEnter() {
+    static enter() {
         UIScore.Time = 0;
         UIScore.score = {
             small: 0,
@@ -33,11 +33,11 @@ export default class UIScore {
 
         UIScore.runTimer = setInterval(() => {
             Timer.arr.forEach(t => t.update());
-            UIScore.onUpdate();
+            UIScore.update();
         }, 300);
     }
 
-    static onUpdate() {
+    static update() {
         // 清空画板，并绘制黑色背景
         const app = Scene.app;
         app.clearRect(0, 0, 600, 600);
@@ -119,14 +119,14 @@ export default class UIScore {
             // 积分计算结束，进入下一关
             UIScore.Time += 300;
             if (UIScore.Time >= 3000) {
-                UIScore.onLeave();
+                UIScore.leave();
                 Game.stage++;
-                UIStage.onEnter();
+                UIStage.enter();
             }
         }
     }
 
-    static onLeave() {
+    static leave() {
         clearInterval(UIScore.runTimer);
     }
 }

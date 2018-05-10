@@ -1,8 +1,7 @@
 import Tank from './Tank';
 import Loader from '../Loader';
 import Const from '../Const';
-import Game from '../Game';
-import Util from '../Util/util';
+import Util from '../Util/Util';
 
 export default class NpcTank extends Tank {
     fireTime = 0;
@@ -17,7 +16,7 @@ export default class NpcTank extends Tank {
         this.bullets = [];
     }
 
-    update() {
+    update(barriers, isFreeze) {
         switch (this.state) {
             case 'death':
                 return;
@@ -25,13 +24,13 @@ export default class NpcTank extends Tank {
                 if (this._birthTime > 1.2) {
                     this.state = 'moving';
                     this.setFrameSequence(false);
-                    Game.barrier.push(this);
+                    barriers.push(this);
                     Game.enemyLiveArr.push(this);
                     this.updateNext();
                     this.updateFrame();
 
                     // 检测是否有粘住坦克，如果有则允许移动，并且移动后不可在黏住
-                    Game.barrier.filter(unit => this.collidesWith(unit)).forEach(unit => {
+                    barriers.filter(unit => this.collidesWith(unit)).forEach(unit => {
                         this._stickySprite = unit;
                         unit._stickySprite = this;
                     });
@@ -49,7 +48,7 @@ export default class NpcTank extends Tank {
             case 'stay':
                 this.stayTime = this.stayTime + (1 / Const.FPS);
                 if (this.stayTime > 0.5 + Math.random() * 2) {
-                    if (!Game.isFreeze) {
+                    if (!isFreeze) {
                         this.autoToTurn();
                     }
                     this.stayTime = 0;

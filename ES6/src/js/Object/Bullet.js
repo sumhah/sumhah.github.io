@@ -51,7 +51,7 @@ export default class Bullet extends Sprite {
         }
 
         // 对 接触到 并且 不为盟友 的单位执行动作
-        const target = Game.barrier.find(unit => !this.isCanPass(unit) &&
+        const target = Game.barriers.find(unit => !this.isCanPass(unit) &&
             (this.collidesWith(unit) && this.team !== unit.team));
         if (target instanceof Tank) {
             this.idle();
@@ -66,7 +66,7 @@ export default class Bullet extends Sprite {
         }
 
         if (target instanceof TileLayer) {
-            Game.barrier.filter(otherTile => otherTile instanceof TileLayer &&
+            Game.barriers.filter(otherTile => otherTile instanceof TileLayer &&
                 this.collidesWith(otherTile, 20) && this.isCanBeDestroyed(otherTile))
                 .forEach(unit => unit.destroy());
             this.idle();
@@ -103,7 +103,7 @@ export default class Bullet extends Sprite {
         this.x = x;
         this.y = y;
         this.angel = angel;
-        Game.barrier.push(this);
+        Game.barriers.push(this);
     }
 
     idle() {
@@ -111,7 +111,7 @@ export default class Bullet extends Sprite {
         this.hide();
         this.isIdle = true;
 
-        Game.barrier.remove(this);
+        Game.barriers.remove(this);
     }
 
     hit() {

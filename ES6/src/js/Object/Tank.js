@@ -6,7 +6,7 @@ import Timer from '../Util/Timer';
 import Game from '../Game';
 import Const from '../Const';
 import Bonus from './Bonus';
-import Util from '../Util/util';
+import Util from '../Util/Util';
 import TileLayer from './TileLayer';
 
 export default class Tank extends Sprite {
@@ -216,7 +216,7 @@ export default class Tank extends Sprite {
         Game.score += this.score;
         this._boom.start(this.x - 28, this.y - 28, this.score / 100);
         this.state = 'death';
-        Game.barrier.remove(this);
+        Game.barriers.remove(this);
 
         if (this === Game.player) {
             Game.curGrade = 0;
@@ -238,22 +238,18 @@ export default class Tank extends Sprite {
     }
 
     reset() {
-        if (this.type !== 7) {
-            this.HP = 1;
-        } else {
-            this.HP = 4;
-        }
+        this.HP = this.type !== 7 ? 1 : 4;
         this.bullets.forEach((b) => {
             Game.unit.remove(b._boom._scoreSprite);
             Game.unit.remove(b._boom);
             Game.unit.remove(b);
-            Game.barrier.remove(b);
+            Game.barriers.remove(b);
         });
         this.bullets = [];
     }
 
     smoothMove() {
-        if (Game.barrier.some(b => b instanceof TileLayer && this.collidesWith(b))) {
+        if (Game.barriers.some(b => b instanceof TileLayer && this.collidesWith(b))) {
             this.revise();
         }
     }

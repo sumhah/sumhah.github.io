@@ -9,15 +9,15 @@ export default class UIStage {
     static runTimer = null;
     static y = 0;
 
-    static onEnter() {
+    static enter() {
         UIStage.y = 0;
         UIStage.runTimer = setInterval(() => {
             Timer.arr.forEach(t => t.update());
-            UIStage.onUpdate();
+            UIStage.update();
         }, Const.FPS);
     }
 
-    static onUpdate() {
+    static update() {
         const app = Scene.app;
         app.clearRect(0, 0, 600, 600);
         app.fillStyle = '#000';
@@ -35,13 +35,13 @@ export default class UIStage {
             app.fillText('STAGE    ' + Game.stage.toString(), 193, 234);
             if (Input.isPressed(Const.KEY_CODE.ENTER)) {
                 Input.keyRelease(Const.KEY_CODE.ENTER);
-                UIStage.onLeave();
-                UIGame.onEnter();
+                UIStage.leave();
+                UIGame.enter();
             }
         }
     }
 
-    static onLeave() {
+    static leave() {
         clearInterval(UIStage.runTimer);
     }
 }

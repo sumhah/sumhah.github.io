@@ -10,14 +10,14 @@ export default class UIGameOver {
     static Time = 0;
     static isPlay = false;
 
-    static onEnter() {
+    static enter() {
         UIGameOver.runTimer = setInterval(function () {
             Timer.arr.forEach(t => t.update());
-            UIGameOver.onUpdate();
+            UIGameOver.update();
         }, Const.FPS);
     }
 
-    static onUpdate() {
+    static update() {
         UIGameOver.Time += Const.FPS;
         Scene.draw();
 
@@ -47,7 +47,7 @@ export default class UIGameOver {
         }
     }
 
-    static onLeave() {
+    static leave() {
         clearInterval(UIGameOver.runTimer);
     }
 

@@ -40,7 +40,7 @@ export default class App {
     }
 
     static run() {
-        UIOpen.onEnter();
+        UIOpen.enter();
     }
 
     static pause() {

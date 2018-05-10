@@ -13,7 +13,7 @@ export default class Game {
     static tanks = [];
     static enemyTanks = [];
     static enemyLiveArr = [];
-    static barrier = [];
+    static barriers = [];
     static player = null;         // 玩家坦克
     static curGrade = 0;          // 坦克当前等级
 
@@ -155,24 +155,24 @@ export default class Game {
     }
 
     static over() {
-        UIGame.onLeave();
+        UIGame.leave();
         const player = Game.player;
         if (player.state === 'moving') {
             player.state = 'stay';
         }
-        UIGameOver.onEnter();
+        UIGameOver.enter();
     }
 
     static update() {
         Game.autoBirth();
-        Game.unit.forEach(unit => unit.update());
+        Game.unit.forEach(unit => unit.update(Game.barriers));
 
         // 电脑坦克全部摧毁，进入下一关
         if (Game.expectantEnemyNum <= 0 && Game.enemyLeftNum <= 0) {
             Game.enemyLeftNum = 1000;
             new Timer(() => {
-                UIGame.onLeave();
-                UIScore.onEnter();
+                UIGame.leave();
+                UIScore.enter();
             }, 4000);
         }
 
@@ -261,7 +261,7 @@ export default class Game {
         Game.tanks = [];
         Game.enemyTanks = [];
         Game.enemyLiveArr = [];
-        Game.barrier = [];
+        Game.barriers = [];
         Game.scoreTanksArr = {
             small: 0,
             fast: 0,

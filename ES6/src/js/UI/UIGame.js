@@ -8,19 +8,19 @@ export default class UIGame {
     static runTimer = null;
     static y = 0;
 
-    static onEnter() {
+    static enter() {
         Game.reset();
         Loader.soundArr[5].play();
 
         UIGame.runTimer = setInterval(() => {
             Timer.arr.forEach(t => t.update());
-            UIGame.onUpdate();
+            UIGame.update();
         }, Const.FPS);
 
         UIGame.y = 225;
     }
 
-    static onUpdate() {
+    static update() {
         Scene.draw();
         Game.command();
 
@@ -38,7 +38,7 @@ export default class UIGame {
         }
     }
 
-    static onLeave() {
+    static leave() {
         clearInterval(UIGame.runTimer);
     }
 }

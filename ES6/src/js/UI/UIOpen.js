@@ -11,10 +11,10 @@ export default class UIOpen {
     static y = 378;
     static tank = null;
 
-    static onEnter() {
+    static enter() {
         UIOpen.runTimer = setInterval(() => {
             Timer.arr.forEach(t => t.update());
-            UIOpen.onUpdate();
+            UIOpen.update();
         }, Const.FPS);
 
         const tank = new Sprite();
@@ -26,7 +26,7 @@ export default class UIOpen {
         UIOpen.tank = tank;
     }
 
-    static onUpdate() {
+    static update() {
         UIOpen.Time += Const.FPS;
         Scene.app.clearRect(0, 0, 600, 600);
         Scene.app.fillStyle = '#000';
@@ -55,14 +55,14 @@ export default class UIOpen {
             UIOpen.tank.draw();
 
             if (Input.isPressed(Const.KEY_CODE.ENTER)) {
-                UIOpen.onLeave();
-                UIStage.onEnter();
+                UIOpen.leave();
+                UIStage.enter();
             }
         }
         Scene.app.restore();
     }
 
-    static onLeave() {
+    static leave() {
         clearInterval(UIOpen.runTimer);
     }
 }

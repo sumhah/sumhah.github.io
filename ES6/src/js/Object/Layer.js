@@ -20,7 +20,6 @@ export default class Layer {
     };
 
     constructor() {
-        this.angel = 0;
     }
 
     setPos(x, y) {

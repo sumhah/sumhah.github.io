@@ -1,6 +1,5 @@
 import Tank from './Tank';
 import Boot from './Boot';
-import Game from '../Game';
 import Loader from '../Loader';
 import Const from '../Const';
 
@@ -17,7 +16,7 @@ export default class MyTank extends Tank {
         this._bootSprite = new Boot();
     }
 
-    update() {
+    update(barriers) {
         switch (this.state) {
             case 'death':
                 return;
@@ -26,11 +25,11 @@ export default class MyTank extends Tank {
                     this.state = 'stay';
                     this.setFrameSequence(false);
                     this.updateFrame();
-                    Game.barrier.push(this);
+                    barriers.push(this);
                     this.updateNext();
 
                     // 检测是否有粘住坦克，如果有则允许移动，并且移动后不可在黏住
-                    Game.barrier.filter(unit => this.collidesWith(unit)).forEach(unit => {
+                    barriers.filter(unit => this.collidesWith(unit)).forEach(unit => {
                         this._stickySprite = unit;
                         unit._stickySprite = this;
                     });

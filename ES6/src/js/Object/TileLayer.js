@@ -27,14 +27,14 @@ export default class TileLayer extends Sprite {
                     break;
                 case 1:
                     this.frameSeqDefault = [1];
-                    Game.barrier.push(this);
+                    Game.barriers.push(this);
                     break;
                 case 2:
                     this.frameSeqDefault = [2];
                     break;
                 case 3:
                     this.frameSeqDefault = [3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4];
-                    Game.barrier.push(this);
+                    Game.barriers.push(this);
                     break;
                 case 4:
                     this.frameSeqDefault = [5];
@@ -42,12 +42,12 @@ export default class TileLayer extends Sprite {
                 case 5:
                     this.setSize(16, 16);
                     this.frameSeqDefault = [12];
-                    Game.barrier.push(this);
+                    Game.barriers.push(this);
                     break;
                 case 6:
                     this.setSize(16, 16);
                     this.frameSeqDefault = [42];
-                    Game.barrier.push(this);
+                    Game.barriers.push(this);
                     break;
                 default:
                     break;
@@ -67,14 +67,14 @@ export default class TileLayer extends Sprite {
                 break;
             case 1:
                 this.frameSeqDefault = [1];
-                Game.barrier.push(this);
+                Game.barriers.push(this);
                 break;
             case 2:
                 this.frameSeqDefault = [2];
                 break;
             case 3:
                 this.frameSeqDefault = [3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4];
-                Game.barrier.push(this);
+                Game.barriers.push(this);
                 break;
             case 4:
                 this.frameSeqDefault = [5];
@@ -82,12 +82,12 @@ export default class TileLayer extends Sprite {
             case 5:
                 this.setSize(16, 16);
                 this.frameSeqDefault = [12];
-                Game.barrier.push(this);
+                Game.barriers.push(this);
                 break;
             case 6:
                 this.setSize(16, 16);
                 this.frameSeqDefault = [42];
-                Game.barrier.push(this);
+                Game.barriers.push(this);
                 break;
             default:
                 break;
@@ -112,7 +112,7 @@ export default class TileLayer extends Sprite {
             Loader.soundArr[0].play();
             Game.over();
         } else {
-            Game.barrier.remove(this);
+            Game.barriers.remove(this);
             this.hide();
         }
     }
