@@ -1,2 +1,2 @@
 # battleCity
-a tank game
+JavaScript implementation of 《Battle City》（バトルシティー）
