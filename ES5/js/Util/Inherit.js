@@ -125,7 +125,7 @@ var Timer = Class({
 
 
     update: function () {
-        this.time += Const.FPS;
+        this.time += Const.FRAME_TIME;
         if (this.time > this.endTime) {
             this.fn();
             Timer.arr.remove(this);

@@ -42,7 +42,7 @@ var MyTank = Class(Tank, {
                     }
                 }
                 else {
-                    this._birthTime += 1 / Const.FPS;
+                    this._birthTime += Const.FRAME_TIME / 1000;
                 }
 
                 if (this._birthDelay > 0) {

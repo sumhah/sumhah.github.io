@@ -31,15 +31,18 @@ var UIScore = {
             big: 0,
             total: 0,
         };
+        UIScore.update();
+    },
 
-        UIScore.runTimer = setInterval(function () {
+    update: function () {
+        this.runTimer = requestAnimationFrame(function () {
+            UIScore.update();
             Timer.arr.forEach(function (t) {
                 t.update();
             });
             UIScore.onUpdate();
-        }, 300);
+        })
     },
-
 
     onUpdate: function () {
 

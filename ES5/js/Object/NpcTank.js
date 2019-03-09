@@ -41,7 +41,7 @@ var NpcTank = Class(Tank, {
                     }
                 }
                 else {
-                    this._birthTime += 1 / Const.FPS;
+                    this._birthTime += Const.FRAME_TIME / 1000;
                 }
 
                 if (this._birthDelay > 1) {
@@ -53,7 +53,7 @@ var NpcTank = Class(Tank, {
                 }
                 break;
             case 'stay':
-                this.stayTime = this.stayTime + (1 / Const.FPS);
+                this.stayTime = this.stayTime + Const.FRAME_TIME / 1000;
                 if (this.stayTime > 0.5 + Math.random() * 2) {
                     if (!Game.isFreeze) {
                         this.autoToTurn();
@@ -74,7 +74,7 @@ var NpcTank = Class(Tank, {
                     this.fireTime = 0;
                 }
                 else {
-                    this.fireTime += 1 / Const.FPS;
+                    this.fireTime += Const.FRAME_TIME / 1000;
                 }
                 break;
             case 'moving':
@@ -107,7 +107,7 @@ var NpcTank = Class(Tank, {
                     this.fireTime = 0;
                 }
                 else {
-                    this.fireTime += 1 / Const.FPS;
+                    this.fireTime += Const.FRAME_TIME / 1000;
                 }
                 break;
             default:
@@ -119,8 +119,7 @@ var NpcTank = Class(Tank, {
 
     autoToTurn: function () {
         this.state = 'moving';
-        var randomNum = Math.floor(Math.random() * 4);
-        this.setDir(randomNum);
+        this.setDir(Math.floor(Math.random() * 4));
     },
 
 

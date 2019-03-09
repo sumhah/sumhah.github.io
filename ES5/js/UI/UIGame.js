@@ -12,17 +12,19 @@ var UIGame = {
     onEnter: function () {
         Game.reset();
         Loader.soundArr[5].play();
+        UIGame.y = 225;
+        UIGame.update();
+    },
 
-        UIGame.runTimer = setInterval(function () {
+    update: function () {
+        this.runTimer = requestAnimationFrame(function () {
+            UIGame.update();
             Timer.arr.forEach(function (t) {
                 t.update();
             });
             UIGame.onUpdate();
-        }, Const.FPS);
-
-        UIGame.y = 225;
+        })
     },
-
 
     onUpdate: function () {
         Scene.draw();
@@ -45,7 +47,7 @@ var UIGame = {
 
 
     onLeave: function () {
-        clearInterval(UIGame.runTimer);
+        cancelAnimationFrame(UIGame.runTimer);
     },
 
 

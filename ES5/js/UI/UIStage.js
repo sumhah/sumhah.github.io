@@ -11,16 +11,22 @@ var UIStage = {
 
     onEnter: function () {
         UIStage.y = 0;
-        UIStage.runTimer = setInterval(function () {
+        UIStage.update();
+    },
+
+    update: function () {
+        this.runTimer = requestAnimationFrame(function () {
+            UIStage.update();
             Timer.arr.forEach(function (t) {
                 t.update();
             });
             UIStage.onUpdate();
-        }, Const.FPS);
+        })
     },
 
 
     onUpdate: function () {
+        console.log('UIStage')
         Scene.app.clearRect(0, 0, 600, 600);
         Scene.app.fillStyle = '#000';
         Scene.app.fillRect(0, 0, 512, 600);
@@ -46,7 +52,7 @@ var UIStage = {
 
 
     onLeave: function () {
-        clearInterval(UIStage.runTimer);
+        cancelAnimationFrame(UIStage.runTimer);
     },
 
 

@@ -12,17 +12,22 @@ var UIGameOver = {
 
 
     onEnter: function () {
-        UIGameOver.runTimer = setInterval(function () {
+        UIGameOver.update();
+    },
+
+    update: function () {
+        this.runTimer = requestAnimationFrame(function () {
+            UIGameOver.update();
             Timer.arr.forEach(function (t) {
                 t.update();
             });
             UIGameOver.onUpdate();
-        }, Const.FPS);
+        })
     },
 
 
     onUpdate: function () {
-        UIGameOver.Time += Const.FPS;
+        UIGameOver.Time += Const.FRAME_TIME;
         Scene.draw();
 
         // and draw
@@ -53,7 +58,7 @@ var UIGameOver = {
 
 
     onLeave: function () {
-        clearInterval(UIGameOver.runTimer);
+        cancelAnimationFrame(UIGameOver.runTimer);
     },
 
 

@@ -21,5 +21,5 @@ var Const = {
     MAX_TANK: 6,                // 最大坦克数
     TOTAL_ENEMY: 20,
 
-    FPS: 33,
+    FRAME_TIME: 1000 / 60,
 };

@@ -37,7 +37,7 @@ var Boom = Class(Sprite, {
                 this.lastTime = 0;
             }
             else {
-                this.lastTime += 1 / Const.FPS;
+                this.lastTime += Const.FRAME_TIME / 1000;
                 return;
             }
         }

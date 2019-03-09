@@ -12,13 +12,7 @@ var UIOpen = {
 
 
     onEnter: function () {
-        UIOpen.runTimer = setInterval(function () {
-            Timer.arr.forEach(function (t) {
-                t.update();
-            });
-            UIOpen.onUpdate();
-        }, Const.FPS);
-
+        UIOpen.update();
         UIOpen.tank = new Sprite();
         UIOpen.tank.img = Loader.imgArr[0];
         UIOpen.tank.setFrameSequence([0, 0, 14, 14]);
@@ -27,9 +21,18 @@ var UIOpen = {
         UIOpen.tank.angel = 90;
     },
 
+    update: function () {
+        this.runTimer = requestAnimationFrame(function () {
+            UIOpen.update();
+            Timer.arr.forEach(function (t) {
+                t.update();
+            });
+            UIOpen.onUpdate();
+        })
+    },
 
     onUpdate: function () {
-        UIOpen.Time += Const.FPS;
+        UIOpen.Time += Const.FRAME_TIME;
         Scene.app.clearRect(0, 0, 600, 600);
         Scene.app.fillStyle = '#000';
         Scene.app.fillRect(0, 0, 512, 449);
@@ -44,6 +47,7 @@ var UIOpen = {
         Scene.app.fillText('2  PLAYERS', 178, 327);
         Scene.app.fillText('CONSTRUCTION', 178, 358);
 
+        Scene.app.restore();
         if (UIOpen.y > 0) {
             UIOpen.y -= 4;
             if (Input.isPressed(keyCode.ENTER)) {
@@ -61,12 +65,11 @@ var UIOpen = {
                 UIStage.onEnter();
             }
         }
-        Scene.app.restore();
     },
 
 
     onLeave: function () {
-        clearInterval(UIOpen.runTimer);
+        cancelAnimationFrame(this.runTimer);
     },
 
 
