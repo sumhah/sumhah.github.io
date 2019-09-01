@@ -1,0 +1,178 @@
+$imagesDir: '../images/'; // 图片拼接前缀
+$imagesSuffix: '.png'; // 图片拼接的后缀,如不需要可在样式文件里再次赋值此变量为空
+
+@function r($num) {
+    @return #{$num}px;
+}
+
+// 宽高
+@mixin wh($w, $h) {
+    width: r($w);
+    height: r($h);
+}
+
+// 宽高 and 单行文本居中
+@mixin whlh($w, $h) {
+    @include wh($w, $h);
+    line-height: r($h);
+}
+
+// 仅指定背景图片名
+@mixin onlyBg($imgFileName) {
+    // 项目图片目录
+    background-image: url('#{$imagesDir}#{$imgFileName}#{$imagesSuffix}');
+}
+
+// 指定背景图片名 and 使图片自适应当前容器
+@mixin bg($imgFileName, $repeat: no-repeat) {
+    // 项目图片目录
+    // 简写background会出现各种各样的bug, 某些低端机型不支持background-size的简写，支持的机型又会因为简写把background-size的声明覆盖掉
+    @include onlyBg($imgFileName);
+    background-repeat: $repeat;
+    // 只指定100%  高度超过图片高度的部分就不显示，高度小于图片高度就只显示图片的一部分(当前容器高度)
+    background-size: 100% 100%;
+}
+
+// 图片型容器: 宽高与图层一样，背景图为图层图片
+@mixin box($w, $h, $imgFileName) {
+    @include wh($w, $h);
+    @include bg($imgFileName);
+}
+
+// 绝对定位的图片型容器
+@mixin abs-box($left, $top, $w, $h, $imgFileName) {
+    position: absolute;
+    left: r($left);
+    top: r($top);
+    @include wh($w, $h);
+    @include bg($imgFileName);
+}
+
+// 定宽block 水平居中
+@mixin mgc() {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// 居中公共mixin
+@mixin pos-center() {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// 悬浮水平垂直居中
+@mixin fix-center {
+    position: fixed;
+    @include pos-center;
+}
+
+// 悬浮水平居中
+@mixin fix-level-center {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+// 悬浮垂直居中
+@mixin fix-vertical-center {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+// 绝对定位水平垂直居中
+@mixin absolute-center {
+    position: absolute;
+    @include pos-center;
+}
+
+// 绝对定位水平居中
+@mixin absolute-level-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+// 绝对定位垂直居中
+@mixin absolute-vertical-center {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@mixin four0 {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+// 悬浮撑满当前窗口
+@mixin fix-0 {
+    position: fixed;
+    @include four0;
+}
+
+// 绝对定位撑满父元素
+@mixin abs-0 {
+    position: absolute;
+    @include four0;
+}
+
+// 阴影层
+@mixin shadow($zIndex: 10, $opacity: .8) {
+    z-index: $zIndex;
+    @include fix-0;
+    background-color: rgba(0, 0, 0, $opacity);
+}
+
+// 上两边圆角 radius(top, 100) 下两边、左两边、右两边
+@mixin radius($direction, $w) {
+    @if ($direction == left) {
+        border-top-left-radius: r($w);
+        border-bottom-left-radius: r($w);
+    } @else if ($direction == right) {
+        border-top-right-radius: r($w);
+        border-bottom-right-radius: r($w);
+    } @else if ($direction == bottom) {
+        border-bottom-left-radius: r($w);
+        border-bottom-right-radius: r($w);
+    } @else if ($direction == top) {
+        border-top-left-radius: r($w);
+        border-top-right-radius: r($w);
+    }
+}
+
+// 使元素变正圆
+@mixin circle() {
+    border-radius: 9999px;
+}
+
+// 三角形
+@mixin triangle($direction, $w, $color) {
+    @if ($direction == left) {
+        border-right: r($w) solid $color;
+        border-top: r($w / 2) solid transparent;
+        border-bottom: r($w / 2) solid transparent;
+    } @else if ($direction == right) {
+        border-left: r($w) solid $color;
+        border-top: r($w / 2) solid transparent;
+        border-bottom: r($w / 2) solid transparent;
+    } @else if ($direction == bottom) {
+        border-top: r($w) solid $color;
+        border-left: r($w / 2) solid transparent;
+        border-right: r($w / 2) solid transparent;
+    } @else if ($direction == top) {
+        border-bottom: r($w) solid $color;
+        border-left: r($w / 2) solid transparent;
+        border-right: r($w / 2) solid transparent;
+    }
+}
+
+// 文字超出，省略号
+@mixin ell {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

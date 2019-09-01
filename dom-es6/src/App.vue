@@ -1,8 +1,7 @@
 <template>
-    <div id="app">
+    <div id="app" @click>
         <div class="game-screen">
-
-            <!--<canvas width="512" height="448" ref="canvas" class="canvas">A drawing of something.</canvas>-->
+            <openPage v-show="uiState === 'open'"></openPage>
         </div>
         <ul class="command">
             <li class="left"></li>
@@ -14,38 +13,37 @@
 </template>
 
 <script>
-    /* eslint-disable */
-    import App from './js/app';
+    import openPage from './pages/open.vue'
+    import {mapState} from 'vuex'
+
     export default {
         name: 'app',
-        mounted() {
-            App.init(this.$refs.canvas);
+        components: {
+            openPage,
+        },
+        computed: {
+            ...mapState(['uiState'])
+        },
+        methods: {
+            enter() {
+
+            }
         }
     }
 </script>
 
-<style>
-    * {
-        padding: 0;
-        margin: 0;
-    }
+<style lang="scss">
+    @import "./scss/reset.scss";
+    @import "./scss/helper.scss";
 
     html, body {
-        padding: 0;
-        margin: 0;
         background-color: #666600;
     }
 
-    img {
-        border: 0;
-    }
-
-    a {
-        outline: none;
-    }
-
-    .canvas {
-        background-color: #666;
+    #app {
+        position: relative;
+        width: 100%;
+        height: 100%;
     }
 
     .game-screen {
@@ -60,5 +58,4 @@
         border: #630 double 4px;
         background: #000;
     }
-
 </style>
