@@ -1,6 +1,9 @@
 /**
  * Created by m on 2016/3/21.
  */
+
+const BASE_URL = 'https://sumhah.github.io/ES5';
+
 /**
  * loader
  */
@@ -17,7 +20,7 @@ var Loader = {
         for (i = 0, length = arrSrc.length; i < length; i++) {
             if (type === 'image') {
                 source = new Image();
-                source.src = arrSrc[i];
+                source.src = BASE_URL + arrSrc[i];
                 Loader.imgArr.push(source);
                 source.addEventListener('load',
                     function () {
@@ -30,7 +33,7 @@ var Loader = {
             else if (type === 'audio') {
                 source = document.createElement('Audio');
                 document.body.appendChild(source);
-                source.src = arrSrc[i];
+                source.src = BASE_URL + arrSrc[i];
                 source.volume = 1;
                 if (i === 2 || i === 3 || i === 4) {
                     source.volume = .3;
