@@ -13,8 +13,6 @@ CONSTRUCTION
 </template>
 
 <script>
-
-
     export default {
         name: 'open',
         data() {
@@ -30,6 +28,9 @@ CONSTRUCTION
                     this.move()
                 }
             }
+        },
+        mounted() {
+            this.isStart = true;
         },
         methods: {
             move() {
