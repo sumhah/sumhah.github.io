@@ -6,7 +6,7 @@ import {MAP_HEIGHT, MAP_LEFT_X, MAP_UP_Y, MAP_WIDTH} from "./const";
 /**
  * 绘制
  */
-export const canvas: HTMLCanvasElement = document.getElementById('drawing') as HTMLCanvasElement;
+export const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
 export const renderer: CanvasRenderingContext2D = canvas.getContext('2d') as CanvasRenderingContext2D
 
 export function drawSprite({ sprite, ui }: any) {

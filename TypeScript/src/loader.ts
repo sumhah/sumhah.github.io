@@ -1,4 +1,5 @@
-const BASE_URL = 'https://sumhah.github.io/TypeScript';
+// const BASE_URL = 'https://sumhah.github.io/TypeScript';
+const BASE_URL = './src';
 
 interface loadImageResource {
     sourceList: string[]

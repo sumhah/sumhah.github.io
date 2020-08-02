@@ -1,5 +1,5 @@
 import {loadImageResource, loadAudioResource} from "./loader";
-
+import {drawScene} from "./scene";
 
 export async function load() {
     await Promise.all([
@@ -64,13 +64,20 @@ export async function load() {
     ])
 }
 
-function startRender() {
+function loopRender() {
+    drawScene()
+    requestAnimationFrame(() => {
+        drawScene()
+    })
+}
 
+function start() {
+    loopRender()
 }
 
 (async () => {
     await load();
-    startRender();
+    start();
 })()
 
 

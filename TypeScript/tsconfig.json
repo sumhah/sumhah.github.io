@@ -10,7 +10,7 @@
     "noLib": false,
     "allowJs": true,
     "sourceMap": false,
-    "declaration": true,
+//    "declaration": true,
     "skipLibCheck": true,
     "alwaysStrict": false,
     "noImplicitAny": true,
