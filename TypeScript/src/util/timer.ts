@@ -2,31 +2,32 @@
  * @Author: sumhah
  * @Date: 2020/8/1
  */
+import {FRAME_TIME} from "../const";
 
-const arr = [];
+interface Timer {
+    currentTime: number
+    fn: Function
+    endTime: number
+}
 
-export 
-var Timer = Class({
-    Static: {
-        arr: [],
-    },
+let timerList: Timer[] = [];
 
+export function wait(delay: number) {
+    return new Promise((resolve) => {
+        timerList.push({
+            currentTime: 0,
+            fn: resolve,
+            endTime: delay,
+        });
+    });
+}
 
-    Timer: function (fn, t) {
-        this.time = 0;
-        this.fn = fn;
-        this.endTime = t;
-        Timer.arr.push(this);
-    },
-
-
-    update: function () {
-        this.time += Const.FRAME_TIME;
-        if (this.time > this.endTime) {
-            this.fn();
-            Timer.arr.remove(this);
+export function updateTimers() {
+    for (const timer of timerList) {
+        timer.currentTime += FRAME_TIME;
+        if (timer.currentTime > timer.endTime) {
+            timer.fn();
+            timerList = timerList.filter(item => item !== timer);
         }
-    },
-
-
-});
+    }
+}

@@ -1,184 +1,78 @@
 /**
  * Created by m on 2016/3/26.
  */
-var Sprite = Class(Layer, {
-    nextX: 0,
-    nextY: 0,
-    frameLength: 0,
-    currentFrame: 0,
-    frameSequence: [],
-    frameSeqDefault: [],
-    speed: 2,
+import {MAP_LEFT_X, MAP_UP_Y} from "../const";
+import {ArrowKeys, KeyCode} from "../input";
+// import {Frame} from "./frame";
+// import {renderer} from "../scene";
 
+export const ARROW_TO_ANGLE = {
+    [KeyCode.UP]: 0,
+    [KeyCode.RIGHT]: 90,
+    [KeyCode.DOWN]: 180,
+    [KeyCode.LEFT]: 270,
+}
 
-    Sprite: function () {
-    },
+export const ANGLE_TO_ARROW = {
+    0: KeyCode.UP,
+    90: KeyCode.RIGHT,
+    180: KeyCode.DOWN,
+    270: KeyCode.LEFT
+}
 
+export class Sprite {
+    x: number = 0
+    y: number = 0
+    width: number = 32
+    height: number = 32
+    speed: number = 0
+    angel: 0 | 90 | 180 | 270 = 0
+    isVisible: boolean = true
 
-    go: function () {
-        this.x = this.nextX;
-        this.y = this.nextY;
-    },
+    constructor() {
+    }
 
-
-    updateFrame: function () {
-        if (this.currentFrame < this.frameLength - 1) {
-            this.currentFrame++;
+    get nextX() {
+        const arrow = ANGLE_TO_ARROW[this.angel]
+        if (arrow === KeyCode.LEFT) {
+            return this.x - this.speed
         }
-        else {
-            this.currentFrame = 0;
+        if (arrow === KeyCode.RIGHT) {
+            return this.x + this.speed
         }
-        this.imgX = this.frameSequence[this.currentFrame] * this.width;
-    },
+        return this.x
+    }
 
-
-    setFrameSequence: function (seq) {
-        this.frameSequence = seq || this.frameSeqDefault;
-        this.frameLength = this.frameSequence.length;
-        this.currentFrame = 0;
-    },
-
-
-    frameIsEnd: function () {
-        return this.currentFrame === this.frameLength - 1;
-    },
-
-
-    updateNext: function () {
-        switch (this.angel) {
-            /**
-             * left up right down 不超出边界
-             */
-            case 270:
-                this.nextX = this.x - this.speed;
-                this.nextY = this.y;
-                break;
-            case 0:
-                this.nextX = this.x;
-                this.nextY = this.y - this.speed;
-                break;
-            case 90:
-                this.nextX = this.x + this.speed;
-                this.nextY = this.y;
-                break;
-            case 180:
-                this.nextX = this.x;
-                this.nextY = this.y + this.speed;
-                break;
-            default:
-                break;
+    get nextY() {
+        const arrow = ANGLE_TO_ARROW[this.angel]
+        if (arrow === KeyCode.UP) {
+            return this.y - this.speed
         }
-    },
-
-
-    nextStepIsBarrier: function () {
-        var i, length;
-        // 不在地图内
-        if (!this.nextIsInMap()) {
-            return true;
+        if (arrow === KeyCode.DOWN) {
+            return this.y + this.speed
         }
+        return this.y
+    }
 
-        for (i = 0, length = Game.barrier.length; i < length; i++) {
-            if (this.collidesWith(Game.barrier[i]) && Game.barrier[i] !== this._stickySprite) {
-                return true;
-            }
-        }
+    setPos({x, y}: { x: number, y: number }) {
+        this.x = x + MAP_LEFT_X;
+        this.y = y + MAP_UP_Y;
+    }
 
-        return false;
-    },
+    setSize({width, height}: { width: number, height: number }) {
+        this.width = width;
+        this.height = height;
+    }
 
+    setDir(dir: ArrowKeys) {
+        this.angel = ARROW_TO_ANGLE[dir] as 0 | 90 | 180 | 270
+    }
 
-    nextIsInMap: function () {
-        return this.nextX > Const.MAP_LEFT_X - 3 &&
-            this.nextX < Const.MAP_RIGHT_X - this.width &&
-            this.nextY > Const.MAP_UP_Y - 3 &&
-            this.nextY < Const.MAP_DOWN_Y - this.height;
-    },
+    show() {
+        this.isVisible = true;
+    }
 
-
-    revise: function () {
-        var i;
-        switch (this.angel) {
-            case 270:
-            case 90:
-                for (i = 0; i < 26; i++) {
-                    if (distance(this.y, 16 * i + Const.MAP_UP_Y) <= 8) {
-                        this.nextY = 16 * i + Const.MAP_UP_Y;
-                    }
-                }
-                break;
-            case 180:
-            case 0:
-                for (i = 0; i < 26; i++) {
-                    if (distance(this.x, 16 * i + Const.MAP_LEFT_X) <= 8) {
-                        this.nextX = 16 * i + Const.MAP_LEFT_X;
-                    }
-                }
-                break;
-            default:
-                break;
-        }
-
-    },
-
-
-    collidesWith: function (s, w) {
-        /**
-         * 与自身碰撞忽略
-         */
-        if (this === s || s === null) {
-            return false;
-        }
-
-        var x1, y1, w1, h1;
-        var x2, y2, w2, h2;
-
-        /*
-         * 自身精灵坐标
-         */
-        x1 = this.nextX;
-        y1 = this.nextY;
-
-        if (w && this instanceof Bullet && s instanceof TileLayer) {
-            switch (this.angel) {
-                case 270:
-                case 90:
-                    w1 = this.width;
-                    h1 = w;
-                    break;
-                case 180:
-                case 0:
-                    w1 = w;
-                    h1 = this.height;
-                    break;
-                default:
-                    break;
-            }
-        }
-        else {
-            w1 = this.width;
-            h1 = this.height;
-        }
-
-        /*
-         * 目标精灵
-         */
-        x2 = s.x;
-        y2 = s.y;
-        w2 = s.width;
-        h2 = s.height;
-
-        if (x1 >= x2 && x1 >= x2 + w2) {
-            return false;
-        } else if (x1 <= x2 && x1 + w1 <= x2) {
-            return false;
-        } else if (y1 >= y2 && y1 >= y2 + h2) {
-            return false;
-        } else if (y1 <= y2 && y1 + h1 <= y2) {
-            return false;
-        }
-        return true;
-    },
-
-
-});
+    hide() {
+        this.isVisible = false;
+    }
+}

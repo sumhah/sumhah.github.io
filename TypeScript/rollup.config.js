@@ -1,6 +1,6 @@
 import replace from '@rollup/plugin-replace';
 import resolve from '@rollup/plugin-node-resolve';
-import typescript from 'rollup-plugin-typescript2';
+import typescript from '@rollup/plugin-typescript';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import commonjs from 'rollup-plugin-commonjs';
@@ -13,23 +13,19 @@ const isProd = ['prod'].includes(env);
 const version = isProd ? pkgInfo.version : '0.0.1';
 
 export default {
-    input: './src/app.ts',
+    input: {
+        [`battle-city`]: `./src/app.ts`
+    },
     output: {
-        dir: './dist',
-        entryFileNames: 'battle-city.js',
-        format: 'iife',
-        sourcemap: !isProd,
-        globals: {
-            tslib: 'tslib'
-        }
+        dir: 'dist',
+        name: '[name].js',
+        format: 'iife'
     },
     plugins: [
         replace({
             __BuildVersion__: version
         }),
-        typescript({
-            check: false,
-        }),
+        typescript(),
         resolve(),
         commonjs(),
         progress(),

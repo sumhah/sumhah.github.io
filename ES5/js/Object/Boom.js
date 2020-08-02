@@ -64,7 +64,7 @@ var Boom = Class(Sprite, {
 
 
     reset: function () {
-        this.currentFrame = 0;
+        this.currentIndex = 0;
     },
 
 
